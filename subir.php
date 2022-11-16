@@ -11,37 +11,37 @@ $errores = [
 $imprimirFormulario = true;
 if ($_POST) {
 
-    if (isset($_POST['namefile'])) {
+    if (isset($_POST['namefile'])) { //muestra el error de que el fichero esta vacío si no hay nada escrito
         $nameSanitize = htmlspecialchars(trim($_POST['namefile']));
         if (mb_strlen($nameSanitize) == 0) {
-            $errores['nombre'] = "<div class='alert alert-danger'><i class='fa-solid fa-circle-exclamation'></i>&nbsp;" . getCadena('errorvacio') . "</div>";
+            $errores['nombre'] = "<div class='alert alert-danger'><i class='fa-solid fa-circle-exclamation'></i>&nbsp;" . getCadena('errorvacio') . "</div>"; 
         }
     }
 
-    if (
-        $_FILES && isset($_FILES['fichero_usuario']) &&
+    if ( // comprueba si hay fichero, si no hay errores...
+        $_FILES && isset($_FILES['fichero_usuario']) && 
         $_FILES['fichero_usuario']['error'] === UPLOAD_ERR_OK &&
         $_FILES['fichero_usuario']['size'] > 0
     ) {
 
         $fichero = $_FILES['fichero_usuario']['tmp_name'];
-        $permitido = array('image/gif', 'image/png', 'image/jpg', 'image/jpeg', 'application/pdf');
+        $permitido = array('image/gif', 'image/png', 'image/jpg', 'image/jpeg', 'application/pdf'); //extensiones permitidas
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime_fichero = finfo_file($finfo, $fichero);
 
-        if (!in_array($mime_fichero, $permitido)) {
-            $errores['ficheros'] = "<div class='alert alert-danger' role='alert'><i class='fa-solid fa-circle-exclamation'></i>&nbsp;Error: los ficheros $mime_fichero no están permitidos</div>";
+        if (!in_array($mime_fichero, $permitido)) { //muestra el error de que el fichero no está permitido
+            $errores['ficheros'] = "<div class='alert alert-danger' role='alert'><i class='fa-solid fa-circle-exclamation'></i>&nbsp;Error: los ficheros $mime_fichero no están permitidos</div>"; 
         } else {
 
             $permitido = array('gif', 'png', 'jpg', 'pdf', 'jpeg');
             $fichero = $_FILES['fichero_usuario']['name'];
             $extension = pathinfo($fichero, PATHINFO_EXTENSION);
 
-            $rutaFicheroDestino = "./ficheros/" . $nameSanitize . "." . $extension;
-            $seHaSubido = move_uploaded_file($_FILES['fichero_usuario']['tmp_name'], $rutaFicheroDestino);
+            $rutaFicheroDestino = "./ficheros/" . $nameSanitize . "." . $extension; 
+            $seHaSubido = move_uploaded_file($_FILES['fichero_usuario']['tmp_name'], $rutaFicheroDestino); 
 
-            if ($seHaSubido) {
+            if ($seHaSubido) {  //muestra el error de si no se ha subido correctamente o si el fichero está vacío
                 $imprimirFormulario = false;
             } else {
                 $errores['ficheros'] = "<div class='alert alert-danger' role='alert'><i class='fa-solid fa-circle-exclamation'></i>&nbsp;No se subido correctamente</div>";
@@ -143,7 +143,7 @@ if ($_POST) {
                 </div>
             </form>
         <?php } else {
-            echo "<div class='alert alert-primary' role='alert'><i class='fa-solid fa-check'></i>&nbsp;Fichero " . $nameSanitize . "." . $extension . " subido correctamente</div>";
+            echo "<div class='alert alert-primary' role='alert'><i class='fa-solid fa-check'></i>&nbsp;Fichero " . $nameSanitize . "." . $extension . " subido correctamente</div>"; //muestra que se ha subido el fichero
             echo "<a href='subir.php'>Subir otro fichero</a>";
         } ?>
     </div>

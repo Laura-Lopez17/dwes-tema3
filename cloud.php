@@ -7,7 +7,7 @@ function mostrarpdf()
 {
 
 
-    $todosFicheros = scandir('./ficheros');
+    $todosFicheros = scandir('./ficheros'); //hace que se muestren los ficheros pdf
     $ficherosTxt = [];
     if ($todosFicheros !== false) {
         foreach ($todosFicheros as $fic) {
@@ -28,7 +28,7 @@ function mostrarpdf()
 function mostrarimagenes()
 {
 
-    $todosFicheros = scandir('./ficheros');
+    $todosFicheros = scandir('./ficheros'); //hace que se muestren las imagenes con determinada extensión
     $ficherosTxt = [];
     if ($todosFicheros !== false) {
         foreach ($todosFicheros as $fic) {

@@ -55,9 +55,9 @@ require 'lengua.php';
         </div>
     </nav>
 
-  <div class="container-fluid pb-4 cuerpo">
+  <div class="container-fluid pb-4 cuerpo"> 
     <h1 class="mt-0 "><?= getCadena('bienvenida'); ?><h1>
-        <p> <?= getCadena(('presentacion1'));?></p>
+        <p> <?= getCadena(('presentacion1'));?></p> <!-- getCadena para que se traduzca-->
         <a href="subir.php"><button type="button" class="btn btn-primary btn-lg"><?=getCadena('botonindex');?>&nbsp;&nbsp;<i class="fa-solid fa-cloud-arrow-up"></i></button><a>
   </div>
 
